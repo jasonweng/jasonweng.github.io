@@ -1,4 +1,4 @@
-baseurl: /github-blog
+baseurl: /
 markdown: rdiscount
 author: jasonweng
 pygments: true
