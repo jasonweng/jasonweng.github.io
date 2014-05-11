@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 深入浅出 javaScript “this" 
+title: 深入理解 javaScript “this" 
 categories:
 - Programming
 tags:
@@ -9,13 +9,12 @@ tags:
 
 在Javascript里有个特殊的值: `this`. 对于前端工程师来说，`this`的名声不是很好，在平常的使用过程中会带来许多的困惑跟烦恼。
 
-
 在Javascript里每个函数都有自己的属性，当函数执行的时候，`this`的值就是当前调用函数的对象。
 
 ###  this定义在函数里
 
 
-~~~
+~~~ javascript
 function normalFunction(){
 console.log( this === window ) // true
 }
@@ -25,7 +24,7 @@ normalFunction()
 
 在严格模式下，`this`的值为 undefined
 
-~~~
+~~~ javascript
 function strictFunction(){
 'use strict'
 console.log( this === undefined ) // true
@@ -36,7 +35,7 @@ strictFunction()
 
 
 一个常见的jQuery代码
-~~~
+~~~ javascript
 $('button').click(function(event){
 console.log( $(this).prop('name') );
 })
@@ -46,7 +45,7 @@ console.log( $(this).prop('name') );
 
 ### this定义在方法里
 
-~~~
+~~~ javascript
 var person = {
   method: function(){
 	console.log(this === person)// true
@@ -58,7 +57,7 @@ person.method();
 
 ### this定义在全局环境里
 
-~~~
+~~~ javascript
 var firstName = `jason`, lastName = 'weng';
 function showFullName(){
 	console.log( this.firstName + lastName ); 
@@ -69,7 +68,7 @@ showFullName函数里的this只的值是window 对象，因为函数showFullName
 
 
 
-~~~
+~~~ javascript
 var person = {
   firstName = 'zhang',
   lastName = 'wenguang',
@@ -89,7 +88,7 @@ person.showFullName(); // zhangwenguang
 
 - ### 创建构造函数的时候忘记了 new
 
-~~~
+~~~ javascript
 function Person(firstName,lastName) {
   this.firstName =firstName;
   this.lastName = lastName;
@@ -99,7 +98,7 @@ var JW = Person('jason','weng');
 这个时候我们同时也创建了2个全局变量firstName跟lastName。
 但是如果你在定义函数的时候使用 'use strict' 模式
 
-~~~
+~~~ javascript
 function Person(firstName,lastName) {
  'use strict' 
   this.firstName =firstName;
@@ -114,13 +113,13 @@ var JW = Person('jason','weng');
 
 假设我们有一个函数
 
-~~~
+~~~ javascript
 function imCallback(func){
 	func();
 }
 
 ~~~
-~~~
+~~~ javascript
 var counter = {
 	count: 0,
 	add: function(){
@@ -137,7 +136,7 @@ console.log(count) // NaN( undefined++ )
 当我们把counter.add当做回调函数来调用的时候，this会指向window，一个全局的count变量将会被创建，值为NaN。
 使用[bind()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)可以解决这个问题
 
-~~~
+~~~ javascript
 var counter = {
 	count: 0,
 	add: function(){
@@ -155,7 +154,7 @@ console.log(counter.count) // 1
 
 先看一段代码
 
-~~~
+~~~ javascript
 var obj = {
         name: 'Jason',
         friends: [ 'Aaron', 'Azuma' ],
@@ -177,7 +176,7 @@ var obj = {
 方法1
 
 在forEach之前把指向obj对象的this赋值给另外一个变量：self
-~~~
+~~~ javascript
 loop: function () {
             'use strict';
             
@@ -194,7 +193,7 @@ loop: function () {
 方法2
 
 使用bind
-~~~
+~~~ javascript
 loop: function () {
             'use strict';            
             this.friends.forEach(function (friend) {
