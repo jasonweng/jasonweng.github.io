@@ -14,6 +14,7 @@ tags:
 
 ###  this定义在函数里
 
+
 ```
 function normalFunction(){
 console.log( this === window ) // true
@@ -23,6 +24,7 @@ normalFunction()
 ```
 
 在严格模式下，`this`的值为 undefined
+
 ```
 function strictFunction(){
 'use strict'
@@ -31,6 +33,7 @@ console.log( this === undefined ) // true
 
 strictFunction()
 ```
+
 
 一个常见的jQuery代码
 ```
