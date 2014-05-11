@@ -35,12 +35,13 @@ strictFunction()
 
 
 一个常见的jQuery代码
+
 ~~~ javascript
 $('button').click(function(event){
 console.log( $(this).prop('name') );
 })
-
 ~~~
+
 `$(this)` 就是对象`$('button')`的值，因为是 $('button')调用的click方法，关于这个在后面会详细解释。
 
 ### this定义在方法里
@@ -67,7 +68,6 @@ showFullName()   // jasonweng
 showFullName函数里的this只的值是window 对象，因为函数showFullName是定义在全局作用域里的。所以调用showFullName()的window对象，showFullName()相当于window.showFullName()，只是我们平常把window省略掉了。
 
 
-
 ~~~ javascript
 var person = {
   firstName = 'zhang',
@@ -79,6 +79,7 @@ var person = {
 
 person.showFullName(); // zhangwenguang
 ~~~
+
 当我们调用person.showFullName()的时候，this的值就是调用showFullName方法的对象，也就是person对象，那么this.firstName相当于person.firstName
 
 
