@@ -120,6 +120,7 @@ function imCallback(func){
 }
 
 ~~~
+
 ~~~ javascript
 var counter = {
 	count: 0,
@@ -177,6 +178,7 @@ var obj = {
 方法1
 
 在forEach之前把指向obj对象的this赋值给另外一个变量：self
+
 ~~~ javascript
 loop: function () {
             'use strict';
@@ -194,6 +196,7 @@ loop: function () {
 方法2
 
 使用bind
+
 ~~~ javascript
 loop: function () {
             'use strict';            
