@@ -7,7 +7,7 @@ tags:
 - javascript
 ---
 
-在Javascript里有个特殊的变量: `this`. 对于前端工程师来说，`this`的名声不是很好，在平常的使用过程中会带来许多的困惑跟烦恼。下面我们来分几种情况来更好的理解`this`.
+在Javascript里有个特殊的值: `this`. 对于前端工程师来说，`this`的名声不是很好，在平常的使用过程中会带来许多的困惑跟烦恼。
 
 
 在Javascript里每个函数都有自己的属性，当函数执行的时候，`this`的值就是当前调用函数的对象。
@@ -15,38 +15,38 @@ tags:
 ###  this定义在函数里
 
 
-```
+~~~
 function normalFunction(){
 console.log( this === window ) // true
 }
 normalFunction()
 
-```
+~~~
 
 在严格模式下，`this`的值为 undefined
 
-```
+~~~
 function strictFunction(){
 'use strict'
 console.log( this === undefined ) // true
 }
 
 strictFunction()
-```
+~~~
 
 
 一个常见的jQuery代码
-```
+~~~
 $('button').click(function(event){
 console.log( $(this).prop('name') );
 })
 
-```
+~~~
 `$(this)` 就是对象`$('button')`的值，因为是 $('button')调用的click方法，关于这个在后面会详细解释。
 
 ### this定义在方法里
 
-```
+~~~
 var person = {
   method: function(){
 	console.log(this === person)// true
@@ -54,22 +54,22 @@ var person = {
 }
 
 person.method();
-```
+~~~
 
 ### this定义在全局环境里
 
-```
+~~~
 var firstName = `jason`, lastName = 'weng';
 function showFullName(){
 	console.log( this.firstName + lastName ); 
 }
 showFullName()   // jasonweng
-```
+~~~
 showFullName函数里的this只的值是window 对象，因为函数showFullName是定义在全局作用域里的。所以调用showFullName()的window对象，showFullName()相当于window.showFullName()，只是我们平常把window省略掉了。
 
 
 
-```
+~~~
 var person = {
   firstName = 'zhang',
   lastName = 'wenguang',
@@ -79,7 +79,7 @@ var person = {
 }
 
 person.showFullName(); // zhangwenguang
-```
+~~~
 当我们调用person.showFullName()的时候，this的值就是调用showFullName方法的对象，也就是person对象，那么this.firstName相当于person.firstName
 
 
@@ -89,24 +89,24 @@ person.showFullName(); // zhangwenguang
 
 - ### 创建构造函数的时候忘记了 new
 
-```
+~~~
 function Person(firstName,lastName) {
   this.firstName =firstName;
   this.lastName = lastName;
 }
 var JW = Person('jason','weng');
-```
+~~~
 这个时候我们同时也创建了2个全局变量firstName跟lastName。
 但是如果你在定义函数的时候使用 'use strict' 模式
 
-```
+~~~
 function Person(firstName,lastName) {
  'use strict' 
   this.firstName =firstName;
   this.lastName = lastName;
 }
 var JW = Person('jason','weng');
-```
+~~~
 
 就会抛出`TypeError: Cannot set property 'firstName' of undefined`。
 
@@ -114,13 +114,13 @@ var JW = Person('jason','weng');
 
 假设我们有一个函数
 
-```
+~~~
 function imCallback(func){
 	func();
 }
 
-```
-```
+~~~
+~~~
 var counter = {
 	count: 0,
 	add: function(){
@@ -132,12 +132,12 @@ imCallback( counter.add );
 console.log(counter.count) // 0
 console.log(count) // NaN( undefined++ )
 
-```
+~~~
 
 当我们把counter.add当做回调函数来调用的时候，this会指向window，一个全局的count变量将会被创建，值为NaN。
 使用[bind()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)可以解决这个问题
 
-```
+~~~
 var counter = {
 	count: 0,
 	add: function(){
@@ -148,14 +148,14 @@ var counter = {
 imCallback( counter.add.bind(counter) );
 console.log(counter.count) // 1
 
-```
+~~~
 
 - 闭包里的this
 当我们创建一个闭包的时候，在闭包里使用this是访问不到外部函数的this的值的。
 
 先看一段代码
 
-```
+~~~
 var obj = {
         name: 'Jason',
         friends: [ 'Aaron', 'Azuma' ],
@@ -172,12 +172,12 @@ var obj = {
     };
     obj.loop();
     // TypeError: Cannot read property 'name' of undefined
-```
+~~~
 
 方法1
 
 在forEach之前把指向obj对象的this赋值给另外一个变量：self
-```
+~~~
 loop: function () {
             'use strict';
             
@@ -189,12 +189,12 @@ loop: function () {
             );
         }
 
-```
+~~~
 
 方法2
 
 使用bind
-```
+~~~
 loop: function () {
             'use strict';            
             this.friends.forEach(function (friend) {
@@ -202,7 +202,7 @@ loop: function () {
                 }.bind(this));
         }
 
-```
+~~~
 
 
 
